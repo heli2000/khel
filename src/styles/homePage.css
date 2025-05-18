@@ -8,7 +8,7 @@
   z-index: 1;
   width: 100%;
   background: var(--card-bg);
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--background);
 }
 
 .logo {
@@ -44,8 +44,8 @@
   top: 50%;
   left: 30px;
   transform: translateY(-50%);
-  color: white;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  color: var(--foreground);
+  text-shadow: 0 0 10px var(--background);
 }
 
 .hero-title {
@@ -56,7 +56,7 @@
 .hero-subtitle {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #ffd100; /* bright accent color */
+  color: var(--accent);
 }
 
 .section {
@@ -72,8 +72,8 @@
 .homepage-footer {
   text-align: center;
   background: var(--card-bg);
-  color: #888;
+  color: var(--foreground);
   padding: 20px 0;
   font-size: 0.9rem;
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid var(--background);
 }

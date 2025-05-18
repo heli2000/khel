@@ -1,0 +1,48 @@
+/* Override the primary button background and border */
+.ant-btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--card-bg) !important;
+}
+
+/* Hover and focus state */
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: var(
+    --accent
+  ) !important; /* or darken(--primary) if using a preprocessor */
+  border-color: var(--accent) !important;
+  color: var(--foreground) !important;
+}
+
+/* Optional: Active state for click feedback */
+.ant-btn-primary:active {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: var(--card-bg) !important;
+}
+
+/* Target selected and hover menu items */
+.ant-menu-horizontal > .ant-menu-item-selected,
+.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-horizontal > .ant-menu-item-active {
+  background-color: var(--primary) !important;
+  color: var(--card-bg) !important;
+}
+
+/* Base text button style */
+.ant-btn-text {
+  color: var(--primary) !important;
+  background: transparent !important;
+}
+
+/* Hover/focus states */
+.ant-btn-text:hover,
+.ant-btn-text:focus {
+  color: var(--accent) !important; /* or var(--primary-hover) */
+}
+
+/* Active state */
+.ant-btn-text:active {
+  color: var(--accent) !important; /* or var(--primary-active) */
+}
