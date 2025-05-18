@@ -1,14 +1,25 @@
+/* Your custom styles below */
+@import "../styles/homePage.css";
+
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #121212;         /* Dark slate */
+  --foreground: #f1f1f1;         /* Light gray for text */
+  --accent: #ff3c00;             /* Fiery orange-red */
+  --primary: #00ffd5;            /* Neon aqua */
+  --card-bg: #1e1e1e;            /* For content cards */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #fefefe;
+    --accent: #ff3c00;
+    --primary: #00ffd5;
+    --card-bg: #141414;
   }
 }
+
 
 html,
 body {
