@@ -10,6 +10,7 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import SignInForm from "../user/SignInForm";
+import UserOTPVerifyForm from "../user/UserOTPVerifyForm";
 
 const menuItems = [
   {
@@ -32,6 +33,10 @@ const menuItems = [
 const HeaderMenu = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [authDropdownVisible, setAuthDropdownVisible] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [authMode, setAuthMode] = useState("signin"); // "signin" or "signup"
+  const [isOtp, setIsOtp] = useState(false);
 
   // Handle screen resize
   useEffect(() => {
@@ -43,19 +48,15 @@ const HeaderMenu = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [authDropdownVisible, setAuthDropdownVisible] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [authMode, setAuthMode] = useState("signin"); // "signin" or "signup"
-
   const handleAuthClick = (mode) => {
     setAuthMode(mode);
     setAuthDropdownVisible((prev) => !prev);
   };
 
-  const handleAuthSubmit = () => {
+  const handleAuthSubmit = (phoneNumber) => {
     // Handle phone number authentication here
     setAuthDropdownVisible(false);
-    setPhoneNumber("");
+    setPhoneNumber(phoneNumber);
   };
 
   // Close auth dropdown when clicking outside
@@ -66,10 +67,20 @@ const HeaderMenu = () => {
       if (dropdown && !dropdown.contains(event.target)) {
         setAuthDropdownVisible(false);
       }
+      const dropdownOTP = document.querySelector(".otp-dropdown");
+      if (dropdownOTP && !dropdownOTP.contains(event.target)) {
+        setIsOtp(false);
+      }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [authDropdownVisible]);
+
+  const handleOtp = (phoneNumber) => {
+    setIsOtp(true);
+    setAuthDropdownVisible(false);
+    setPhoneNumber(phoneNumber);
+  };
 
   return (
     <Header className="homepage-header">
@@ -115,7 +126,28 @@ const HeaderMenu = () => {
                     minWidth: 220,
                   }}
                 >
-                  <SignInForm authMode={authMode} />
+                  <SignInForm
+                    authMode={authMode}
+                    isOtp={(phoneNumber) => handleOtp(phoneNumber)}
+                  />
+                </div>
+              )}
+              {isOtp && (
+                <div
+                  className="otp-dropdown"
+                  style={{
+                    position: "absolute",
+                    top: "40px",
+                    right: 0,
+                    background: "#fff",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                    padding: 16,
+                    borderRadius: 8,
+                    zIndex: 1000,
+                    minWidth: 220,
+                  }}
+                >
+                  <UserOTPVerifyForm phoneNumber={phoneNumber} />
                 </div>
               )}
             </div>

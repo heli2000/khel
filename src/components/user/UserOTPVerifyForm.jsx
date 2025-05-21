@@ -1,38 +1,43 @@
 import { SuccessCreationCode } from "@/constants/apiStatus";
 import { PhoneNumberRequired } from "@/constants/validationMessage";
-import { generateOTP } from "@/services/userServices";
+import { verifyOTP } from "@/services/userServices";
 import { Button } from "antd";
 import Form from "antd/es/form/Form";
 import Input from "antd/es/input/Input";
 
-const SignInForm = ({ authMode, isOtp }) => {
+const UserOTPVerifyForm = ({ phoneNumber }) => {
   const [form] = Form.useForm();
 
   const handleSubmit = async (values) => {
-    let response = await generateOTP(values);
+    const requestBody = {
+      ...values,
+      phoneNumber: phoneNumber,
+    };
+    let response = await verifyOTP(requestBody);
     if (response.status == SuccessCreationCode) {
-      isOtp(values.phoneNumber);
+      setIsOtp(true);
     }
   };
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit}>
-      <div style={{ marginBottom: 8, fontWeight: 500 }}>
-        {authMode === "signin" ? "Sign In" : "Sign Up"}
-      </div>
+      <div style={{ marginBottom: 8, fontWeight: 500 }}>OTP verification</div>
       <Form.Item
-        name="phoneNumber"
+        name="otp"
         rules={[{ required: true, message: PhoneNumberRequired }]}
       >
-        <Input type="tel" placeholder="Enter phone number" />
+        <Input type="text" placeholder="Enter OTP" />
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" block>
-          {authMode === "signin" ? "Sign In" : "Sign Up"}
+          Verify OTP
+        </Button>
+        <Button type="text" htmlType="button" block>
+          Resend OTP
         </Button>
       </Form.Item>
     </Form>
   );
 };
 
-export default SignInForm;
+export default UserOTPVerifyForm;
